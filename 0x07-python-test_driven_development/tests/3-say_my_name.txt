@@ -1,54 +1,19 @@
-The ``3-say_my_name`` module
-============================
+#!/usr/bin/python3
+"""
+    Insert here module comment
+    Write a function that prints My name is <first name> <last name>
+    Prototype: def say_my_name(first_name, last_name=""):
+    first_name and last_name must be strings otherwise,
+    raise a TypeError exception with the message
+    first_name must be a string or last_name must be a string
+    You are not allowed to import any module
+"""
 
-Using ``say_my_name``
----------------------
 
-Importing function from the module:
+def say_my_name(first_name, last_name=""):
+    """ print my first and last name """
+    str_error = "first_name must be a string or last_name must be a string"
+    if type(first_name) is not str or type(last_name) is not str:
+        raise TypeError(str_error)
+    print("My name is", first_name, last_name)
 
-    >>> say_my_name = __import__('3-say_my_name').say_my_name
-
-Passing first_name and last_name correctly
-
-    >>> say_my_name("Ada", "Okereke")
-    My name is Ada Okereke
-
-Passing first_name and last_name correctly 2
-
-    >>> say_my_name("Uche")
-    My name is Uche
-
-Passing None as the last_name
-
-    >>> say_my_name("Makuo", None)
-    Traceback (most recent call last):
-    	      ...
-    TypeError: last_name must be a string
-
-Passing None as the first_name
-
-    >>> say_my_name(None)
-    Traceback (most recent call last):
-    	      ...
-    TypeError: first_name must be a string
-
-Passing a number as the first_name
-
-    >>> say_my_name(3)
-    Traceback (most recent call last):
-    	      ...
-    TypeError: first_name must be a string
-
-Passing a number as the last_name
-
-    >>> say_my_name("Mmachukwu", 0)
-    Traceback (most recent call last):
-    	      ...
-    TypeError: last_name must be a string
-
-Missing two arguments
-
-    >>> say_my_name()
-    Traceback (most recent call last):
-    	      ...
-    TypeError: say_my_name() missing 1 required positional argument: 'first_name'
