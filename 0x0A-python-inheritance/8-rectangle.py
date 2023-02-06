@@ -1,28 +1,28 @@
 #!/usr/bin/python3
-"""inherits from BaseGeometry"""
+"""Module 8-rectangle.py.
+Inherits from BaseGeometry.
+"""
 
-
-class BaseGeometry:
-    """public instance method"""
-
-    def area(self):
-        """raises an exception"""
-        raise Exception("area() is not implemented")
-
-    def integer_validator(self, name, value):
-        """validates value"""
-        if type(value) is not int:
-            raise TypeError("{} must be an integer".format(name))
-        if value <= 0:
-            raise ValueError("{} must be greater than 0".format(name))
+BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
 
 class Rectangle(BaseGeometry):
-    """class Rectangle inherits from BaseGeometry"""
+    """a class Rectangle that inherits from BaseGeometry.
+
+    Private instances attributes:
+        - width
+        - height
+    """
 
     def __init__(self, width, height):
-        """initialization of privates"""
-        self.integer_validator('width', width)
+        """Initializing a Rectangle instance.
+
+        Args:
+           width: width of the Rectangle
+           height: height of the Rectangle.
+        """
+
+        self.integer_validator("width", width)
+        self.integer_validator("height", height)
         self.__width = width
-        self.integer_validator('height', height)
         self.__height = height
