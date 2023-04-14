@@ -1,31 +1,32 @@
 #!/usr/bin/python3
 """
-a script that lists all State objects
-from the database hbtn_0e_6_usa
+This script prints all City objects
+from the database `hbtn_0e_14_usa`.
 """
 
-import sys
+from sys import argv
 from model_state import Base, State
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
 from model_city import City
-
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 if __name__ == "__main__":
-    engine = create_engine("mysql+mysqldb://{}:{}@localhost:3306/{}"
-                           .format(sys.argv[1], sys.argv[2], sys.argv[3]))
+    """
+    Access to the database and get the cities
+    from the database.
+    """
 
-    Base.metadata.create_all(engine)
-    Base = automap_base()
-    Base.prepare(engine, reflect=True)
+    db_uri = 'mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
+        argv[1], argv[2], argv[3])
+    eng = create_engine(db_uri)
+    Session = sessionmaker(bind=eng)
 
-    States = Base.classes.states
-    session = Session(engine)
+    ses = Session()
 
-    states = (session.query(State, City).filter(City.state_id == State.id)
-                     .order_by(City.id).all())
-    for state, city in states:
-            print("{}: ({}) {}".format(state.name, city.id, city.name))
+    query = ses.query(City, State).join(State)
 
-    session.close()
+    for _c, _s in query.all():
+        print("{}: ({:d}) {}".format(_s.name, _c.id, _c.name))
+
+    ses.commit()
+    ses.close()
